@@ -87,7 +87,7 @@ function App() {
           )}
           {message === "正解！" && (
             <>
-              <p className="correct-message">正解！</p>
+              <p className="correct-message">⭕ 正解！</p>
               <button className="next-button" onClick={goNextQuestion}>次の問題へ</button>
             </>
           )}

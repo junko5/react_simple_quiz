@@ -137,6 +137,16 @@ p {
   box-shadow: 0 8px 25px rgba(225, 112, 85, 0.3);
 }
 
+/* 正解メッセージ専用スタイル */
+.correct-message {
+  color: #d63031;
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin: 25px 0;
+  padding: 20px 30px;
+  text-align: center;
+}
+
 /* スコア表示 */
 .score-display {
   font-size: 1.5rem;
