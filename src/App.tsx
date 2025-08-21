@@ -19,36 +19,43 @@ function App() {
   }
 
   // クイズスタート
-  const QuizStart = ():void => {
+  const QuizStart = (): void => {
     setStarted(true);
     setScore(0);
-    setQuestionCount(0)
+    setQuestionCount(0);
+    setMessage('');
 
-    const order: Word[] = shuffle(words).slice(0,5);
+    const order: Word[] = shuffle(words).slice(0, 5);
     setQuestionOrder(order);
     buildQuestion(order[0]);
   };
 
   // クイズ作成
-  const buildQuestion = (pick:Word):void => {
+  const buildQuestion = (pick: Word): void => {
     setCurrentWord(pick);
-    const wrongPool = words.filter(w=>w.word !== pick.word);
-    const wrongs = shuffle(wrongPool).slice(0,2);
-    setOptions([pick.meaning, wrongs[0].meaning, wrongs[1].meaning]);
+    const wrongPool = words.filter(w => w.word !== pick.word);
+    const wrongs = shuffle(wrongPool).slice(0, 2);
+
+    // 選択肢シャッフル
+    const allOptions = [pick.meaning, wrongs[0].meaning, wrongs[1].meaning];
+    setOptions(shuffle(allOptions));
   }
 
-  const handleChoose = (choose:string):void => {
+  const handleChoose = (choose: string): void => {
     // 正解
-    if(currentWord && choose === currentWord.meaning) {
+    if (currentWord && choose === currentWord.meaning) {
       setMessage('正解！');
-      setQuestionCount(questionCount + 1);
 
       //  初回で正解の場合
-      if(!alreadyAnswered) {
+      if (!alreadyAnswered) {
         setScore(score + 1);
         setAlreadyAnswered(true);
       }
-    // 不正解
+
+      // 次の問題へ
+      goNextQuestion();
+
+      // 不正解
     } else {
       setMessage('不正解！');
       setAlreadyAnswered(true);
@@ -56,11 +63,17 @@ function App() {
   };
 
   // 次の問題へ
-  const goNextQuestion = ():void => {
-    if(questionCount >= 5) return;
-    const next = questionOrder[questionCount];
+  const goNextQuestion = (): void => {
+    const newQuestionCount = questionCount + 1;
+    if (newQuestionCount >= 5) {
+      setQuestionCount(newQuestionCount);
+      return;
+    };
+
+    const next = questionOrder[newQuestionCount];
     buildQuestion(next);
     setAlreadyAnswered(false);
+    setQuestionCount(newQuestionCount);
   }
 
   if (started && questionCount >= 5) {
@@ -81,6 +94,11 @@ function App() {
 
       ) : (
         <div>
+          {message === "正解！" && (
+            <>
+              <p className="correct-message">⭕ 正解！ 次の問題です。</p>
+            </>
+          )}
           <h2>次の単語の意味は？</h2>
           {currentWord && (
             <>
@@ -90,12 +108,6 @@ function App() {
                   <button key={i} className="option-button" onClick={() => handleChoose(opt)}>{opt}</button>
                 ))}
               </div>
-            </>
-          )}
-          {message === "正解！" && (
-            <>
-              <p className="correct-message">⭕ 正解！</p>
-              <button className="next-button" onClick={goNextQuestion}>次の問題へ</button>
             </>
           )}
 

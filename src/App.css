@@ -140,10 +140,8 @@ p {
 /* 正解メッセージ専用スタイル */
 .correct-message {
   color: #d63031;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
   font-weight: 800;
-  margin: 25px 0;
-  padding: 20px 30px;
   text-align: center;
 }
 
