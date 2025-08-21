@@ -1,69 +1,47 @@
-# React + TypeScript + Vite
+# 🎯 英語クイズアプリ (English Quiz App)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React + TypeScript で作成したシンプルな英語単語クイズアプリです。
 
-Currently, two official plugins are available:
+![Quiz Demo](https://biz.addisteria.com/wp-content/uploads/2025/08/react_simple_quiz.png)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🌟 特徴
 
-## Expanding the ESLint configuration
+- **5問のランダムクイズ**: 毎回異なる問題順序
+- **3択問題**: 正解1つ + 不正解2つのランダム配置
+- **スコア機能**: 初回正解のみカウント
+- **再挑戦機能**: 何度でもクイズを楽しめる
+- **レスポンシブデザイン**: PC・スマホ対応
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🎮 使い方
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+1. **スタート**ボタンを押してクイズ開始
+2. 表示された英単語の意味を3つの選択肢から選択
+3. 正解すると自動で次の問題へ
+4. 不正解の場合は再チャレンジ可能
+5. 5問終了後にスコアを表示
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🛠️ 技術スタック
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Frontend**: React 19.1.1 + TypeScript
+- **Build Tool**: Vite 7.1.2
+- **Styling**: CSS
+- **Utilities**: Lodash (配列シャッフル機能)
+- **Linting**: ESLint
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## 📚 収録単語
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+現在10個の基本英単語を収録。こちらを変更すれば、違うクイズが楽しめます。:
+- apple (りんご)
+- book (本)
+- dog (犬)
+- cat (猫)
+- house (家)
+- car (車)
+- water (水)
+- sun (太陽)
+- school (学校)
+- music (音楽)
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+
+
+
