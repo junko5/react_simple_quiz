@@ -5,35 +5,41 @@ import { useState } from 'react';
 
 function App() {
   const [started, setStarted] = useState(false);
-  const [currentWord, setCurrentWord] = useState(null);
-  const [options, setOptions] = useState([]);
-  const [message, setMessage] = useState('');
-  const [score, setScore] = useState(0);
-  const [questionCount, setQuestionCount] = useState(0);
-  const [alreadyAnswered, setAlreadyAnswered] = useState(false);
-  const [questionOrder, setQuestionOrder] = useState([]);
+  const [currentWord, setCurrentWord] = useState<Word | null>(null);
+  const [options, setOptions] = useState<string[]>([]);
+  const [score, setScore] = useState<number>(0);
+  const [questionCount, setQuestionCount] = useState<number>(0);
+  const [alreadyAnswered, setAlreadyAnswered] = useState<boolean>(false);
+  const [questionOrder, setQuestionOrder] = useState<Word[]>([]);
+  const [message, setMessage] = useState<string>('');
+
+  type Word = {
+    word: string;
+    meaning: string;
+  }
 
   // クイズスタート
-  const QuizStart = () => {
+  const QuizStart = ():void => {
     setStarted(true);
     setScore(0);
     setQuestionCount(0)
 
-    const order = shuffle(words).slice(0,5);
+    const order: Word[] = shuffle(words).slice(0,5);
     setQuestionOrder(order);
     buildQuestion(order[0]);
   };
 
-  const buildQuestion = (pick) => {
+  // クイズ作成
+  const buildQuestion = (pick:Word):void => {
     setCurrentWord(pick);
     const wrongPool = words.filter(w=>w.word !== pick.word);
     const wrongs = shuffle(wrongPool).slice(0,2);
     setOptions([pick.meaning, wrongs[0].meaning, wrongs[1].meaning]);
   }
 
-  const handleChoose = (choose) => {
+  const handleChoose = (choose:string):void => {
     // 正解
-    if(choose === currentWord.meaning) {
+    if(currentWord && choose === currentWord.meaning) {
       setMessage('正解！');
       setQuestionCount(questionCount + 1);
 
@@ -49,7 +55,8 @@ function App() {
     }
   };
 
-  const goNextQuestion = () => {
+  // 次の問題へ
+  const goNextQuestion = ():void => {
     if(questionCount >= 5) return;
     const next = questionOrder[questionCount];
     buildQuestion(next);
